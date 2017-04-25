@@ -8,9 +8,7 @@ public class Boundary
     public float xMin, xMax, zMin, zMax;
 }
 
-
 public class PlayerController : MonoBehaviour {
-
 
     public float speed;
     public float tilt;
@@ -48,10 +46,9 @@ public class PlayerController : MonoBehaviour {
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.Play();
         }
-        
     }
-
-
-
+    
 }
