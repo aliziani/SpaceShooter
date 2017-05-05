@@ -6,11 +6,9 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-    public GameObject hazardSlow;
-    public GameObject hazardQuick;
+    public GameObject[] hazards;
     public Vector3 spawnValues;
-    public int hazardCountSlow;
-    public int hazardCountQuick;
+    public int hazardCount;
     public float spawnWait;
     public float startWait;
     public float waveWait;
@@ -29,21 +27,12 @@ public class GameController : MonoBehaviour {
         yield return new WaitForSeconds(startWait);
         while (true)
         {
-            // loop for each slow asteroids
-            for (int i = 0; i < hazardCountSlow; i++)
+            for (int i = 0; i < hazardCount; i++)
             {
+                var hazard = hazards[Random.Range(0, hazards.Length)];
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), 0, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
-                Instantiate(hazardSlow, spawnPosition, spawnRotation);
-                // [0,1] determines how much asteroids we want to show by seconds
-                yield return new WaitForSeconds(spawnWait);
-            }
-            // loop for each quick asteroids
-            for (int i = 0; i < hazardCountQuick; i++)
-            {
-                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), 0, spawnValues.z);
-                Quaternion spawnRotation = Quaternion.identity;
-                Instantiate(hazardQuick, spawnPosition, spawnRotation);
+                Instantiate(hazard, spawnPosition, spawnRotation);
                 // [0,1] determines how much asteroids we want to show by seconds
                 yield return new WaitForSeconds(spawnWait);
             }

@@ -19,9 +19,9 @@ public class PlayerController : MonoBehaviour {
 
     private float nextFire;
 
-    private float xShotPosition = 0.168f;
-    private float yShotPosition = 0.06f;
-    private float zShotPosition = 0.576f;
+    //private float xShotPosition = 0.168f;
+    //private float yShotPosition = 0.06f;
+    //private float zShotPosition = 0.576f;
 
     /// <summary>
     /// Called before each physics step
@@ -49,12 +49,12 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
+            // generate left laser
+            var vectorShotLeft = new Vector3(shotSpawn.position.x + 0.157f, shotSpawn.position.y, shotSpawn.position.z + 1.408f);
+            Instantiate(shot, vectorShotLeft, shotSpawn.rotation);
             // generate right laser
-            var vectorShot = new Vector3(shotSpawn.position.x + xShotPosition, shotSpawn.position.y /*+ yShotPosition*/, shotSpawn.position.z);
-            Instantiate(shot, vectorShot, shotSpawn.rotation);
-            vectorShot.x = shotSpawn.position.x - xShotPosition;
-            //vectorShot.y = shotSpawn.position.y - 0.456f;
-            Instantiate(shot, vectorShot, shotSpawn.rotation);
+            var vectorShotRight = new Vector3(shotSpawn.position.x - 0.157f, shotSpawn.position.y, shotSpawn.position.z + 1.408f);
+            Instantiate(shot, vectorShotRight, shotSpawn.rotation);
             // let me sing the song of my people
             AudioSource audio = GetComponent<AudioSource>();
             audio.Play();
